@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import bom.Employee;
 import entites.EmployeeEntity;
 import services.EmployeeService;
 
@@ -28,22 +29,23 @@ public class EmployeeResource {
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public List<EmployeeEntity> showAll(){
-		return empService.showAll();
+	public List<Employee> showAll(){
+		return empService.toBoms(empService.showAll());
 	}
 	
 	@GET
 	@Path("{EmployeeId}")
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	public EmployeeEntity read(@PathParam("EmployeeId") int id) {
-		return empService.findById(id);
+	public Employee read(@PathParam("EmployeeId") int id) {
+		return empService.toBom(empService.findById(id));
 	}
-	
+	//changes here
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response addEmployee(EmployeeEntity empEntity) {
+	public Response addEmployee(Employee emp) {
+		EmployeeEntity empEntity = empService.toEntity(emp);
 		empService.addEmployee(empEntity);
 		return Response.status(Status.OK).build();
 	}
@@ -51,7 +53,8 @@ public class EmployeeResource {
 	@PUT
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response updateEmployee(EmployeeEntity empEntity) {
+	public Response updateEmployee(Employee emp) {
+		EmployeeEntity empEntity = empService.toEntity(emp);
 		empService.updateEmployee(empEntity);
 		return Response.status(Status.OK).build();
 	}
@@ -59,7 +62,8 @@ public class EmployeeResource {
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response deleteEmployee(EmployeeEntity empEntity) {
+	public Response deleteEmployee(Employee emp) {
+		EmployeeEntity empEntity = empService.toEntity(emp);
 		empService.deleteEmployee(empEntity);
 		return Response.status(Status.OK).build();
 	}

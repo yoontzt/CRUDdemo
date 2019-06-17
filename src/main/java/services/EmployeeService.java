@@ -2,13 +2,21 @@ package services;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
+import bom.Employee;
 import entites.EmployeeEntity;
 
 @Stateless
-public class EmployeeService extends GenericService<EmployeeEntity> {
+public class EmployeeService extends GenericService<EmployeeEntity,Employee> {
+	@EJB
+	DepartmentService deptService;
+	
+	public EmployeeService() {
+		super();
+	}
 	
 	public List<EmployeeEntity> showAll(){
 		TypedQuery<EmployeeEntity> q = em.createQuery("select e from EmployeeEntity e", EmployeeEntity.class);
@@ -28,6 +36,7 @@ public class EmployeeService extends GenericService<EmployeeEntity> {
 		newEntity.setName(e.getName());
 		newEntity.setAge(e.getAge());
 		newEntity.setEmail(e.getEmail());
+		newEntity.setDepartment(deptService.findDepartmentById(e.getDepartment().getId()));
 		this.save(newEntity);
 	}
 
@@ -36,6 +45,7 @@ public class EmployeeService extends GenericService<EmployeeEntity> {
 		newEntity.setName(e.getName());
 		newEntity.setAge(e.getAge());
 		newEntity.setEmail(e.getEmail());
+		newEntity.setDepartment(deptService.findDepartmentById(e.getDepartment().getId()));
 		this.update(newEntity);
 		
 	}
@@ -52,6 +62,28 @@ public class EmployeeService extends GenericService<EmployeeEntity> {
 		
 	}
 	
+	@Override
+	public EmployeeEntity toEntity(Employee bom) {
+		if (bom != null) {
+			EmployeeEntity empEntity = new EmployeeEntity(bom.getId(), bom.getName(),
+					bom.getAge(), bom.getEmail(), deptService.findDepartmentById(bom.getDepartmentid()));
+			System.out.println(bom.getDepartmentid() + ": dept id from UI");
+			return empEntity;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public Employee toBom(EmployeeEntity entity) {
+		if (entity != null) {
+			
+			Employee emp = new Employee(entity.getId(), entity.getName(),
+					 entity.getAge(), entity.getEmail(), entity.getDepartment().getId());
+			return emp;
+		}
+		return null;
+	}
 
 	
 	
