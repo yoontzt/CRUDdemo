@@ -15,5 +15,19 @@ public abstract class GenericService<E> {
 	public EntityManager getEm() {
 		return em;
 	}
+	
+	public void save(E entity) {
+		if (entity != null) {
+			em.persist(entity);
+		}
+	}
+	
+	public void update(E entity) {
+		em.merge(entity);
+	}
+	
+	public void remove(E entity) {
+		em.remove(entity);
+	}
 
 }

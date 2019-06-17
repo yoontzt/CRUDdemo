@@ -21,5 +21,38 @@ public class EmployeeService extends GenericService<EmployeeEntity> {
 		return newemp;
 		
 	}
+	
+	
+	public void addEmployee(EmployeeEntity e) {
+		EmployeeEntity newEntity = new EmployeeEntity();
+		newEntity.setName(e.getName());
+		newEntity.setAge(e.getAge());
+		newEntity.setEmail(e.getEmail());
+		this.save(newEntity);
+	}
 
+	public void updateEmployee(EmployeeEntity e) {
+		EmployeeEntity newEntity = findById(e.getId());
+		newEntity.setName(e.getName());
+		newEntity.setAge(e.getAge());
+		newEntity.setEmail(e.getEmail());
+		this.update(newEntity);
+		
+	}
+	
+	public void deleteEmployee(EmployeeEntity e) {
+		EmployeeEntity newEntity = findById(e.getId());
+		this.remove(newEntity);
+		
+	}
+
+	public void deleteEmployeebyId(int id) {
+		EmployeeEntity newemp = findById(id);
+		this.remove(newemp);
+		
+	}
+	
+
+	
+	
 }
