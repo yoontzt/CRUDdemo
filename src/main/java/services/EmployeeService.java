@@ -15,5 +15,11 @@ public class EmployeeService extends GenericService<EmployeeEntity> {
 		return q.getResultList();
 	}
 	
+	public EmployeeEntity findById(int id) {
+		EmployeeEntity newemp = new EmployeeEntity();
+		newemp = em.find(EmployeeEntity.class, id);
+		return newemp;
+		
+	}
 
 }
