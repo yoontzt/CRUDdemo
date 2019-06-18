@@ -66,8 +66,8 @@ public class EmployeeService extends GenericService<EmployeeEntity,Employee> {
 	public EmployeeEntity toEntity(Employee bom) {
 		if (bom != null) {
 			EmployeeEntity empEntity = new EmployeeEntity(bom.getId(), bom.getName(),
-					bom.getAge(), bom.getEmail(), deptService.findDepartmentById(bom.getDepartmentid()));
-			System.out.println(bom.getDepartmentid() + ": dept id from UI");
+					bom.getAge(), bom.getEmail(),bom.getDepartment());
+			
 			return empEntity;
 		}
 		
@@ -79,7 +79,7 @@ public class EmployeeService extends GenericService<EmployeeEntity,Employee> {
 		if (entity != null) {
 			
 			Employee emp = new Employee(entity.getId(), entity.getName(),
-					 entity.getAge(), entity.getEmail(), entity.getDepartment().getId());
+					 entity.getAge(), entity.getEmail(),entity.getDepartment());
 			return emp;
 		}
 		return null;

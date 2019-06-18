@@ -1,5 +1,6 @@
 package bom;
 
+import entites.DepartmentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,5 @@ public class Employee {
 	private String name;
 	private int age;
 	private String email;
-	private int departmentid;
+	private DepartmentEntity department;
 }

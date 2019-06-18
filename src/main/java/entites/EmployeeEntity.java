@@ -37,6 +37,6 @@ public class EmployeeEntity {
 	private String email;
 	
 	@ManyToOne
-	@JoinColumn(name="department_id",nullable = true)
+	@JoinColumn(name="department",nullable = true)
 	private DepartmentEntity department;
 }
