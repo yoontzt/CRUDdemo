@@ -1,12 +1,12 @@
 package web_config;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 
@@ -16,10 +16,11 @@ import services.DepartmentService;
 import services.EmployeeService;
 
 
-@SuppressWarnings("deprecation")
+
+@SuppressWarnings({ "serial", "deprecation" })
 @ManagedBean
-@ViewScoped
-public class WebHandler {
+@SessionScoped
+public class WebHandler implements Serializable {
 
 	private Department department = new Department();
 	private Employee employee = new Employee();
@@ -72,18 +73,19 @@ public class WebHandler {
 		return "index.xhtml?faces-redirect=true&includeViewParams=true";
 	}
 	
-	public void editEmployee(Employee employeeBOM) {
-		employee = employeeBOM;
+	public String editEmployee(Employee emp) {
+	     employee= emp;
+		return "update.xhtml?faces-redirect=true&id="+ emp.getId() ;
 	}
+	
+
 	
 	public void changeDepartment(ValueChangeEvent dept) {
 		department = depService
 				.toBom(depService.findDepartmentById(Integer.parseInt(dept.getNewValue().toString())));
 	}
 	
-	public void reverseEmployeeList() {
-		Collections.reverse(employeeList);
-	}
+	
 
 	public Employee getEmployee() {
 		return employee;
@@ -116,6 +118,8 @@ public class WebHandler {
 	public void setDepartmentList(List<Department> departmentList) {
 		this.departmentList = departmentList;
 	}
+
+	
 	
 	
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:f="http://java.sun.com/jsf/core"   
+xmlns:h="http://java.sun.com/jsf/html">
+	
+    <h:head>
+
+    </h:head>
+   	<h:body>
+   	
+   	<h:form id="emform">
+<h1>Update Form</h1>
+<h:panelGrid columns="2">
+		
+			Name:
+			<h:inputText id="name" value="#{webHandler.employee.name}"
+				size="20" required="true" label="name" />
+			
+			
+		 	Age:
+		 	<h:inputText id="age" value="#{webHandler.employee.age}"
+		 			size="20" required="true" label="age" />
+			
+			
+			Email:
+			<h:inputText id="email" value="#{webHandler.employee.email}"
+				size="20" required="true" label="email">
+				<f:validateRegex
+					pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$" />
+			</h:inputText>
+			
+			
+			Department:
+			<h:selectOneMenu id="department" value="#{webHandler.department.id}"
+				valueChangeListener="#{webHandler.changeDepartment}">
+				<f:selectItems value="#{webHandler.departmentList}" var="_dept"
+					itemValue="#{_dept.id}" itemLabel="#{_dept.name}"  />
+			</h:selectOneMenu>
+			
+			<h:commandButton value="Update"
+				action="#{webHandler.updateEmployee()}" />
+			
+			
+		
+
+</h:panelGrid>		
+</h:form>
+    </h:body>
+    
+</html>

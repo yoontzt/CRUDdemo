@@ -43,8 +43,7 @@
 			<h:commandButton value="Add"
 				action="#{webHandler.addNewEmployee()}" />
 			
-			<h:commandButton value="Update"
-				action="#{webHandler.updateEmployee()}" />
+			
 		
 
 </h:panelGrid>		
@@ -60,7 +59,7 @@
 		
 		<h:column>
 				<f:facet name="header">
-					<h:commandLink action="#{webHandler.reverseEmployeeList()}">
+					<h:commandLink action="#{webHandler.EmployeeList}">
 						Employee ID
 					</h:commandLink>
 				</f:facet>
@@ -89,13 +88,16 @@
 			
 			<h:column>
 				<f:facet name="header">Delete</f:facet>
-				<h:commandLink value="Delete"
-					action="#{webHandler.deleteEmployee(emp)}" />
+				<h:commandButton value="Delete"
+					action="#{webHandler.deleteEmployee(emp)}">
+				</h:commandButton>
 			</h:column>
 
 			<h:column>
-				<f:facet name="header">Edit</f:facet>
-				<h:commandLink value="Edit" action="#{webHandler.editEmployee(emp)}" />
+				<f:facet name="header">Update</f:facet>
+				<h:commandButton value="Update" action="#{webHandler.editEmployee(emp)}">
+				
+				</h:commandButton>
 			</h:column>
 
 </h:dataTable>

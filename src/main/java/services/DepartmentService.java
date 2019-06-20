@@ -32,7 +32,7 @@ public class DepartmentService extends GenericService<DepartmentEntity, Departme
 
 	
 	public List<DepartmentEntity> showAll() {
-		TypedQuery<DepartmentEntity> q = em.createQuery("select d from DepartmentEntity d", DepartmentEntity.class);
+		TypedQuery<DepartmentEntity> q = em.createQuery("select d from DepartmentEntity d order by name ASC", DepartmentEntity.class);
 		return q.getResultList();
 	}
 	

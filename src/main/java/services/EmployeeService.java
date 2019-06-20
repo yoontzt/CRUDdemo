@@ -19,7 +19,7 @@ public class EmployeeService extends GenericService<EmployeeEntity,Employee> {
 	}
 	
 	public List<EmployeeEntity> showAll(){
-		TypedQuery<EmployeeEntity> q = em.createQuery("select e from EmployeeEntity e", EmployeeEntity.class);
+		TypedQuery<EmployeeEntity> q = em.createQuery("select e from EmployeeEntity e order by id ASC ", EmployeeEntity.class);
 		return q.getResultList();
 	}
 	
