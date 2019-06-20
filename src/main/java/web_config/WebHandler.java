@@ -24,6 +24,8 @@ public class WebHandler implements Serializable {
 
 	private Department department = new Department();
 	private Employee employee = new Employee();
+	private Employee editEmployee = new Employee();
+	private int id;
 	
 	@Inject
 	private EmployeeService empService;
@@ -61,8 +63,8 @@ public class WebHandler implements Serializable {
 	}
 	
 	public String updateEmployee() {
-		employee.setDepartment(depService.toEntity(department));
-		empService.update(empService.toEntity(employee));
+		editEmployee.setDepartment(depService.toEntity(department));
+		empService.update(empService.toEntity(editEmployee));
 		employeeList = empService.toBoms(empService.showAll());
 		return "index.xhtml?faces-redirect=true&includeViewParams=true";
 	}
@@ -74,7 +76,8 @@ public class WebHandler implements Serializable {
 	}
 	
 	public String editEmployee(Employee emp) {
-	     employee= emp;
+	     setEditEmployee(emp);
+	     setId(editEmployee.getDepartment().getId());
 		return "update.xhtml?faces-redirect=true&id="+ emp.getId() ;
 	}
 	
@@ -84,6 +87,8 @@ public class WebHandler implements Serializable {
 		department = depService
 				.toBom(depService.findDepartmentById(Integer.parseInt(dept.getNewValue().toString())));
 	}
+	
+	
 	
 	
 
@@ -117,6 +122,22 @@ public class WebHandler implements Serializable {
 
 	public void setDepartmentList(List<Department> departmentList) {
 		this.departmentList = departmentList;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Employee getEditEmployee() {
+		return editEmployee;
+	}
+
+	public void setEditEmployee(Employee editEmployee) {
+		this.editEmployee = editEmployee;
 	}
 
 	
