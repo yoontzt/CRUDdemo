@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+	
+	
+<h:head>
+
+</h:head>
+
+<h:body>
+
+<h:form id="emform">
+<h2>Employee Form</h2>
+<h:panelGrid columns="2">
+		
+			Name:
+			<h:inputText id="name" value="#{webHandler.employee.name}"
+				size="20" required="true" label="name" />
+			
+			
+		 	Age:
+		 	<h:inputText id="age" value="#{webHandler.employee.age}"
+		 			size="20" required="true" label="age" />
+			
+			
+			Email:
+			<h:inputText id="email" value="#{webHandler.employee.email}"
+				size="20" required="true" label="email">
+				<f:validateRegex
+					pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$" />
+			</h:inputText>
+			
+			
+			Department:
+			<h:selectOneMenu id="department" value="#{webHandler.department.id}"
+				valueChangeListener="#{webHandler.changeDepartment}">
+				<f:selectItems value="#{webHandler.departmentList}" var="_dept"
+					itemValue="#{_dept.id}" itemLabel="#{_dept.name}"  />
+			</h:selectOneMenu>
+			
+			<h:commandButton value="Add"
+				action="#{webHandler.addNewEmployee()}" />
+			
+			<h:commandButton value="Update"
+				action="#{webHandler.updateEmployee()}" />
+		
+
+</h:panelGrid>		
+</h:form>
+
+<br />
+<br />
+
+<h:form>
+<h:dataTable id="empData" value="#{webHandler.employeeList}" var="emp"
+		styleClass="employeeTable" headerClass="employeeTableHeader"
+			rowClasses="employeeTableOddRow,employeeTableEvenRow">
+		
+		<h:column>
+				<f:facet name="header">
+					<h:commandLink action="#{webHandler.reverseEmployeeList()}">
+						Employee ID
+					</h:commandLink>
+				</f:facet>
+				#{emp.id}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				#{emp.name}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Age</f:facet>
+				#{emp.age}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				#{emp.email}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Deparment</f:facet>
+				#{emp.department.name}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Delete</f:facet>
+				<h:commandLink value="Delete"
+					action="#{webHandler.deleteEmployee(emp)}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Edit</f:facet>
+				<h:commandLink value="Edit" action="#{webHandler.editEmployee(emp)}" />
+			</h:column>
+
+</h:dataTable>
+</h:form>
+
+</h:body>
+</html>

@@ -1,7 +1,7 @@
-insert into department(id,name,location) values (1,'ICT','Vietnam');
-insert into department(id,name,location) values (2,'HR','Vietnam');
-insert into department(id,name,location) values (3,'ICT','Yangon');
-insert into department(id,name,location) values (4,'HR','Yangon');
+insert into department(id,name) values (1,'ICT');
+insert into department(id,name) values (2,'HR');
+insert into department(id,name) values (3,'Testing');
+insert into department(id,name) values (4,'HR');
 
 insert into employee(name,age,email,department) values ('Yoon',20,'yoon@gmail.com',1);
 insert into employee(name,age,email,department) values ('thin',20,'thin@gmail.com',2);
