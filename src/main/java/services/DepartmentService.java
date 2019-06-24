@@ -20,7 +20,7 @@ public class DepartmentService extends GenericService<DepartmentEntity, Departme
 
 	public DepartmentEntity findDepartmentById(int deptId) {
 		List<DepartmentEntity> getOneDepartment = em
-				.createQuery("SELECT d FROM DepartmentEntity d where d.id = :deptid", DepartmentEntity.class)
+				.createNamedQuery("findByDepartmentId",  DepartmentEntity.class)
 				.setParameter("deptid", deptId).getResultList();
 
 		if (getOneDepartment.isEmpty())
@@ -32,7 +32,7 @@ public class DepartmentService extends GenericService<DepartmentEntity, Departme
 
 	
 	public List<DepartmentEntity> showAll() {
-		TypedQuery<DepartmentEntity> q = em.createQuery("select d from DepartmentEntity d order by name ASC", DepartmentEntity.class);
+		TypedQuery<DepartmentEntity> q = em.createNamedQuery("showDepartmentList", DepartmentEntity.class);
 		return q.getResultList();
 	}
 	

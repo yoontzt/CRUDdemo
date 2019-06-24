@@ -15,7 +15,7 @@
 		<h:panelGrid columns="3">
 		
 			Name:
-			<h:inputText id="name" value="#{webHandler.editEmployee.name}"
+			<h:inputText id="name" value="#{webHandler.employee.name}"
 				size="20" required="true" label="name"
 				requiredMessage="Name is required"
 				validatorMessage="Please enter a valid name.">
@@ -25,7 +25,7 @@
 			<h:message for="name" style="color:red" />
 			
 		 	Age:
-		 	<h:inputText id="age" value="#{webHandler.editEmployee.age}"
+		 	<h:inputText id="age" value="#{webHandler.employee.age}"
 				size="20" required="true" label="age"
 				requiredMessage="Age is required"
 				converterMessage="Age must be a number."
@@ -35,7 +35,7 @@
 			<h:message for="age" style="color:red" />
 			
 			Email:
-			<h:inputText id="email" value="#{webHandler.editEmployee.email}"
+			<h:inputText id="email" value="#{webHandler.employee.email}"
 				size="20" required="true" label="email"
 				requiredMessage="Email is requied"
 				validatorMessage="Email is invalid.">

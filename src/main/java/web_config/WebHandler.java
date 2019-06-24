@@ -41,7 +41,7 @@ public class WebHandler implements Serializable {
 
 	private @Getter @Setter List<Department> departmentList = new ArrayList<>();
 
-	// i dun understand well
+
 	@PostConstruct
 	public void init() {
 		try {
@@ -67,8 +67,8 @@ public class WebHandler implements Serializable {
 	}
 
 	public String updateEmployee() {
-		editEmployee.setDepartment(depService.toEntity(department));
-		empService.update(empService.toEntity(editEmployee));
+		employee.setDepartment(depService.toEntity(department));
+		empService.updateEmployee(employee);
 		employeeList = empService.toBoms(empService.showAll());
 		return "index.xhtml?faces-redirect=true&includeViewParams=true";
 	}
@@ -80,9 +80,9 @@ public class WebHandler implements Serializable {
 	}
 
 	public String viewEmployee(Employee emp) {
-		setEditEmployee(emp);
-		 setId(editEmployee.getDepartment().getId());
-			return "update.xhtml?faces-redirect=true&id="+ emp.getId() ;
+		setEmployee(emp);
+		 setId(employee.getDepartment().getId());
+			return "update.xhtml?faces-redirect=true&id="+id;
 	}
 
 	public void changeDepartment(ValueChangeEvent dept) {

@@ -22,7 +22,7 @@ public class EmployeeService extends GenericService<EmployeeEntity,Employee> {
 	}
 	
 	public List<EmployeeEntity> showAll(){
-		TypedQuery<EmployeeEntity> q = em.createQuery("select e from EmployeeEntity e order by id ASC ", EmployeeEntity.class);
+		TypedQuery<EmployeeEntity> q = em.createNamedQuery("showEmployeeList", EmployeeEntity.class);
 		return q.getResultList();
 	}
 	
@@ -43,8 +43,9 @@ public class EmployeeService extends GenericService<EmployeeEntity,Employee> {
 		this.save(newEntity);
 	}
 
-	public void updateEmployee(EmployeeEntity e) {
-		EmployeeEntity newEntity = findById(e.getId());
+	public void updateEmployee(Employee e) {
+		
+		EmployeeEntity newEntity = findById(empService.toEntity(e).getId());
 		newEntity.setName(e.getName());
 		newEntity.setAge(e.getAge());
 		newEntity.setEmail(e.getEmail());

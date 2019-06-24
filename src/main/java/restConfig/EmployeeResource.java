@@ -54,8 +54,8 @@ public class EmployeeResource {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response updateEmployee(Employee emp) {
-		EmployeeEntity empEntity = empService.toEntity(emp);
-		empService.updateEmployee(empEntity);
+
+		empService.updateEmployee(emp);
 		return Response.status(Status.OK).build();
 	}
 	

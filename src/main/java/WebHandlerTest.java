@@ -27,7 +27,7 @@ public class WebHandlerTest {
 	EmployeeService empService;
 
 	@Test
-	public void testAddNewEmployee_ShouldReturnInNewPage_WhenWeAddSuccessful() {
+	public void testAddNewEmployee_ShouldReturnPage_WhenWeAddSuccessful() {
 
 		Department department = createDepartment();
 		Employee employee = createEmployee();
@@ -43,26 +43,52 @@ public class WebHandlerTest {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testAddNewEmployee_ShouldThrowExveption_WhenFailedoAdd() {
+	@Test
+	public void testUpdateEmployee_ShouldReturnPage_WhenUpdatedIsSuccessful() {
 
 		Department department = createDepartment();
 		Employee employee = createEmployee();
 		webHandler.setDepartment(department);
 		webHandler.setEmployee(employee);
 
-		Mockito.when(depService.toEntity(department)).thenThrow(new IllegalArgumentException());
+		Mockito.when(depService.toEntity(department)).thenReturn(createDepartmentEntity());
 
-		String actual = webHandler.addNewEmployee();
+		String actual = webHandler.updateEmployee();
 
-		Mockito.verify(empService).addEmployee(employee);
+		Mockito.verify(empService).updateEmployee(employee);
 		assertEquals("index.xhtml?faces-redirect=true&includeViewParams=true", actual);
 
 	}
 
-	private Employee createEmployee() {
+	@Test
+	public void testDeleteEmployee_ShouldReturnPage_WhenDeletedIsSuccessful() {
+		Employee employee = createEmployee();
+		webHandler.setEmployee(employee);
+		String actual = webHandler.deleteEmployee(employee);
 
-		return new Employee(1, "Yoon", 20, "yoon@gmail.com", null);
+		assertEquals("index.xhtml?faces-redirect=true&includeViewParams=true", actual);
+
+	}
+	
+	@Test
+	public void testViewEmployee_ShouldReturnUpdatePage_WhenViewEmployeeisSuccessful() {
+		Department department = createDepartment();
+		Employee employee = createEmployee();
+		webHandler.setDepartment(department);
+		webHandler.setEmployee(employee);
+
+		Mockito.when(depService.toEntity(department)).thenReturn(createDepartmentEntity());
+		
+		String actual = webHandler.viewEmployee(employee);
+		int id = employee.getDepartment().getId();
+		assertEquals("update.xhtml?faces-redirect=true&id="+id, actual);
+
+	}
+	
+
+	private Employee createEmployee() {
+		DepartmentEntity department = createDepartmentEntity();
+		return new Employee(1, "Yoon", 20, "yoon@gmail.com", department);
 	}
 
 	private Department createDepartment() {
