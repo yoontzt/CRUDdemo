@@ -8,6 +8,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	<repositories>
+        <repository>  
+            <id>prime-repo</id>  
+            <name>PrimeFaces Maven Repository</name>  
+            <url>http://repository.primefaces.org</url>  
+            <layout>default</layout>  
+        </repository>
+    </repositories>
 	<properties>
 		<jsf.version>2.2.15</jsf.version>
 		<junit.version>3.8.1</junit.version>
@@ -17,6 +25,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<powermock.version>2.0.2</powermock.version>
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.sun.faces</groupId>

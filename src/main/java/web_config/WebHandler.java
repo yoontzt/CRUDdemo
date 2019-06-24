@@ -41,21 +41,13 @@ public class WebHandler implements Serializable {
 
 	private @Getter @Setter List<Department> departmentList = new ArrayList<>();
 
-
 	@PostConstruct
 	public void init() {
-		try {
-			employeeList = empService.toBoms(empService.showAll());
-			departmentList = depService.toBoms(depService.showAll());
-			if (departmentList.size() > 0) {
-				department = departmentList.get(0);
-			}
-		} catch (Throwable e) {
-			System.out.println("Cause: " + e.getCause());
-			System.out.println("Message: " + e.getMessage());
-			System.out.println("Class: " + e.getClass());
-			System.out.println("StackTrace: " + e.getStackTrace());
-			throw e;
+
+		employeeList = empService.toBoms(empService.showAll());
+		departmentList = depService.toBoms(depService.showAll());
+		if (departmentList.size() > 0) {
+			department = departmentList.get(0);
 		}
 	}
 
@@ -81,8 +73,8 @@ public class WebHandler implements Serializable {
 
 	public String viewEmployee(Employee emp) {
 		setEmployee(emp);
-		 setId(employee.getDepartment().getId());
-			return "update.xhtml?faces-redirect=true&id="+id;
+		setId(employee.getDepartment().getId());
+		return "update.xhtml?faces-redirect=true&id=" + id;
 	}
 
 	public void changeDepartment(ValueChangeEvent dept) {

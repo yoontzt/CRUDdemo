@@ -17,12 +17,12 @@
 		
 			Name:
 			
-			<p:inputTextarea rows="10" cols="50" required="true"
+			<h:inputText required="true"
 				completeMethod="#{webHandler.employee.name}"
 				requiredMessage="Name is required"
 				validatorMessage="Please enter a valid name.">
 				<f:validateRegex pattern="^[A-Za-z\s]{1,}[A-Za-z\s]{0,}$" />
-			</p:inputTextarea>
+			</h:inputText>
 			<h:message for="name" style="color:red" />
 			
 		 	Age:
