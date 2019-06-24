@@ -12,32 +12,36 @@ import javax.inject.Inject;
 
 import bom.Department;
 import bom.Employee;
+import lombok.Getter;
+import lombok.Setter;
 import services.DepartmentService;
 import services.EmployeeService;
 
-
-
-@SuppressWarnings({ "serial", "deprecation" })
+@SuppressWarnings("deprecation")
 @ManagedBean
 @SessionScoped
 public class WebHandler implements Serializable {
 
-	private Department department = new Department();
-	private Employee employee = new Employee();
-	private Employee editEmployee = new Employee();
-	private int id;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8495411679904641370L;
+	private @Getter @Setter Department department = new Department();
+	private @Getter @Setter Employee employee = new Employee();
+	private @Getter @Setter Employee editEmployee = new Employee();
+	private @Getter @Setter int id;
+
 	@Inject
 	private EmployeeService empService;
-	
-	@Inject 
+
+	@Inject
 	private DepartmentService depService;
-	
-	private List<Employee> employeeList = new ArrayList<>();
-	
-	private List<Department> departmentList = new ArrayList<>();
-	
-	//i dun understand well
+
+	private @Getter @Setter List<Employee> employeeList = new ArrayList<>();
+
+	private @Getter @Setter List<Department> departmentList = new ArrayList<>();
+
+	// i dun understand well
 	@PostConstruct
 	public void init() {
 		try {
@@ -57,90 +61,31 @@ public class WebHandler implements Serializable {
 
 	public String addNewEmployee() {
 		employee.setDepartment(depService.toEntity(department));
-		empService.save(empService.toEntity(employee));
+		empService.addEmployee(employee);
 		employeeList = empService.toBoms(empService.showAll());
 		return "index.xhtml?faces-redirect=true&includeViewParams=true";
 	}
-	
+
 	public String updateEmployee() {
 		editEmployee.setDepartment(depService.toEntity(department));
 		empService.update(empService.toEntity(editEmployee));
 		employeeList = empService.toBoms(empService.showAll());
 		return "index.xhtml?faces-redirect=true&includeViewParams=true";
 	}
-	
+
 	public String deleteEmployee(Employee employeeBOM) {
 		empService.deleteEmployee(empService.toEntity(employeeBOM));
 		employeeList = empService.toBoms(empService.showAll());
 		return "index.xhtml?faces-redirect=true&includeViewParams=true";
 	}
-	
-	public String editEmployee(Employee emp) {
-	     setEditEmployee(emp);
-	     setId(editEmployee.getDepartment().getId());
-		return "update.xhtml?faces-redirect=true&id="+ emp.getId() ;
-	}
-	
 
-	
+	public String viewEmployee(Employee emp) {
+		setEditEmployee(emp);
+		 setId(editEmployee.getDepartment().getId());
+			return "update.xhtml?faces-redirect=true&id="+ emp.getId() ;
+	}
+
 	public void changeDepartment(ValueChangeEvent dept) {
-		department = depService
-				.toBom(depService.findDepartmentById(Integer.parseInt(dept.getNewValue().toString())));
+		department = depService.toBom(depService.findDepartmentById(Integer.parseInt(dept.getNewValue().toString())));
 	}
-	
-	
-	
-	
-
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	public List<Employee> getEmployeeList() {
-		return employeeList;
-	}
-
-	public void setEmployeeList(List<Employee> employeeList) {
-		this.employeeList = employeeList;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
-	public List<Department> getDepartmentList() {
-		return departmentList;
-	}
-
-	public void setDepartmentList(List<Department> departmentList) {
-		this.departmentList = departmentList;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Employee getEditEmployee() {
-		return editEmployee;
-	}
-
-	public void setEditEmployee(Employee editEmployee) {
-		this.editEmployee = editEmployee;
-	}
-
-	
-	
-	
 }

@@ -14,6 +14,9 @@ public class EmployeeService extends GenericService<EmployeeEntity,Employee> {
 	@EJB
 	DepartmentService deptService;
 	
+	@EJB
+	EmployeeService empService;
+	
 	public EmployeeService() {
 		super();
 	}
@@ -31,8 +34,8 @@ public class EmployeeService extends GenericService<EmployeeEntity,Employee> {
 	}
 	
 	
-	public void addEmployee(EmployeeEntity e) {
-		EmployeeEntity newEntity = new EmployeeEntity();
+	public void addEmployee(Employee e) {
+		EmployeeEntity newEntity = empService.toEntity(e);
 		newEntity.setName(e.getName());
 		newEntity.setAge(e.getAge());
 		newEntity.setEmail(e.getEmail());
