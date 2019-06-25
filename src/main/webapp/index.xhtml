@@ -6,35 +6,34 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
 </h:head>
 
 <h:body>
 
 	<h:form id="emform">
 		<h2>Employee Form</h2>
-		<p:panelGrid columns="3" styleClass="panelgrid">
-		
-			Name:
+		<h:panelGrid columns="3" styleClass="panelgrid" id="grid">
+
+			<p:outputLabel for="name" value="Name:" />
 			<p:inputText id="name" required="true"
-				value="#{webHandler.employee.name}"
 				requiredMessage="Name is required"
 				validatorMessage="Please enter a valid name.">
-				<f:validateRegex pattern="^[A-Za-z\s]{1,}[A-Za-z\s]{0,}$" />
+				<f:validateRegex
+					pattern="[a-zA-Z]{2,}" />
 			</p:inputText>
 			<p:message for="name" style="color:red" />
-			
-		 	Age:
-		 	<p:inputText id="age" value="#{webHandler.employee.age}" size="20"
+
+			<p:outputLabel for="age" value="Age:" />
+			<p:inputText id="age" value="#{webHandler.employee.age}" size="20"
 				required="true" label="age" requiredMessage="Age is required"
 				converterMessage="Age must be a number."
 				validatorMessage="Age must be btween 18 and 45.">
 				<f:validateLongRange minimum="18" maximum="45" />
 			</p:inputText>
-
 			<p:message for="age" style="color:red" />
 			
-			Email:
+			<p:outputLabel for="email" value="Email:" />
 			<p:inputText id="email" value="#{webHandler.employee.email}"
 				size="20" required="true" label="email"
 				requiredMessage="Email is requied"
@@ -44,7 +43,7 @@
 			</p:inputText>
 			<p:message for="email" style="color:red" />
 			
-			Department:
+			<p:outputLabel for="department" value="Department:" />
 			<p:selectOneMenu id="department" value="#{webHandler.department.id}"
 				valueChangeListener="#{webHandler.changeDepartment}">
 				<f:selectItems value="#{webHandler.departmentList}" var="_dept"
@@ -52,10 +51,9 @@
 			</p:selectOneMenu>
 			<p:message for="department" style="color:red" />
 
-			<p:commandButton value="Add" action="#{webHandler.addNewEmployee()}" />
 
-
-		</p:panelGrid>
+		</h:panelGrid>
+		<p:commandButton value="Add" action="#{webHandler.addNewEmployee()}" update="grid" />
 	</h:form>
 
 	<br />
