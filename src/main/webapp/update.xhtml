@@ -17,7 +17,7 @@
 
 			<p:outputLabel for="name" value="Name:" />
 			<p:inputText id="name" required="true"
-				requiredMessage="Name is required"
+				value="#{webHandler.employee.name}" requiredMessage="Name is required"
 				validatorMessage="Please enter a valid name.">
 				<f:validateRegex pattern="[a-zA-Z]{2,}" />
 			</p:inputText>

@@ -18,7 +18,8 @@
 			<p:outputLabel for="name" value="Name:" />
 			<p:inputText id="name" required="true"
 				requiredMessage="Name is required"
-				validatorMessage="Please enter a valid name.">
+				validatorMessage="Please enter a valid name."
+				value = "#{webHandler.employee.name}">
 				<f:validateRegex
 					pattern="[a-zA-Z]{2,}" />
 			</p:inputText>
@@ -50,10 +51,10 @@
 					itemValue="#{_dept.id}" itemLabel="#{_dept.name}" />
 			</p:selectOneMenu>
 			<p:message for="department" style="color:red" />
-
+		<p:commandButton value="Add" action="#{webHandler.addNewEmployee()}"/>
 
 		</h:panelGrid>
-		<p:commandButton value="Add" action="#{webHandler.addNewEmployee()}" update="grid" />
+		
 	</h:form>
 
 	<br />
