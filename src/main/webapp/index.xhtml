@@ -6,115 +6,106 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
+<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
 </h:head>
 
 <h:body>
 
 	<h:form id="emform">
 		<h2>Employee Form</h2>
-		<h:panelGrid columns="3">
+		<p:panelGrid columns="3" styleClass="panelgrid">
 		
 			Name:
-			
-			<h:inputText required="true"
-				completeMethod="#{webHandler.employee.name}"
+			<p:inputText id="name" required="true"
+				value="#{webHandler.employee.name}"
 				requiredMessage="Name is required"
 				validatorMessage="Please enter a valid name.">
 				<f:validateRegex pattern="^[A-Za-z\s]{1,}[A-Za-z\s]{0,}$" />
-			</h:inputText>
-			<h:message for="name" style="color:red" />
+			</p:inputText>
+			<p:message for="name" style="color:red" />
 			
 		 	Age:
-		 	<h:inputText id="age" value="#{webHandler.employee.age}" size="20"
+		 	<p:inputText id="age" value="#{webHandler.employee.age}" size="20"
 				required="true" label="age" requiredMessage="Age is required"
 				converterMessage="Age must be a number."
 				validatorMessage="Age must be btween 18 and 45.">
 				<f:validateLongRange minimum="18" maximum="45" />
-			</h:inputText>
+			</p:inputText>
 
-			<h:message for="age" style="color:red" />
+			<p:message for="age" style="color:red" />
 			
 			Email:
-			<h:inputText id="email" value="#{webHandler.employee.email}"
+			<p:inputText id="email" value="#{webHandler.employee.email}"
 				size="20" required="true" label="email"
 				requiredMessage="Email is requied"
 				validatorMessage="Email is invalid.">
 				<f:validateRegex
 					pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$" />
-			</h:inputText>
-			<h:message for="email" style="color:red" />
+			</p:inputText>
+			<p:message for="email" style="color:red" />
 			
 			Department:
-			<h:selectOneMenu id="department" value="#{webHandler.department.id}"
+			<p:selectOneMenu id="department" value="#{webHandler.department.id}"
 				valueChangeListener="#{webHandler.changeDepartment}">
 				<f:selectItems value="#{webHandler.departmentList}" var="_dept"
 					itemValue="#{_dept.id}" itemLabel="#{_dept.name}" />
-			</h:selectOneMenu>
-			<h:message for="department" style="color:red" />
+			</p:selectOneMenu>
+			<p:message for="department" style="color:red" />
 
-			<h:commandButton value="Add" action="#{webHandler.addNewEmployee()}" />
-
-
+			<p:commandButton value="Add" action="#{webHandler.addNewEmployee()}" />
 
 
-		</h:panelGrid>
+		</p:panelGrid>
 	</h:form>
 
 	<br />
 	<br />
 
 	<h:form>
-		<h:dataTable id="empData" value="#{webHandler.employeeList}" var="emp"
-			styleClass="employeeTable" headerClass="employeeTableHeader"
-			rowClasses="employeeTableOddRow,employeeTableEvenRow">
+		<p:dataTable id="empData" value="#{webHandler.employeeList}" var="emp"
+			styleClass="employeeTable" reflow="true" rows="5" paginator="true">
 
-			<h:column>
-				<f:facet name="header">
-				
-						Employee ID
-					
-				</f:facet>
-				#{emp.id}
-			</h:column>
+			<p:column headerText="Id">
+				<h:outputText value="#{emp.id}" />
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">Name</f:facet>
-				#{emp.name}
-			</h:column>
+			<p:column headerText="Name">
+				<h:outputText value="#{emp.name}" />
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">Age</f:facet>
-				#{emp.age}
-			</h:column>
+			<p:column headerText="Age">
+				<h:outputText value="#{emp.age}" />
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">Email</f:facet>
-				#{emp.email}
-			</h:column>
+			<p:column headerText="Email">
+				<h:outputText value="#{emp.email}" />
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">Deparment</f:facet>
-				#{emp.department.name}
-			</h:column>
+			<p:column headerText="Department Name">
+				<h:outputText value="#{emp.department.name}" />
+			</p:column>
 
-			<h:column>
 
-				<h:commandButton value="Delete"
-					action="#{webHandler.deleteEmployee(emp)}"
+			<p:column>
+
+				<p:commandButton value="Delete"
+					action="#{webHandler.deleteEmployeeFromPage(emp)}"
 					onclick="if(!confirm('Are you sure you want to permentaly delete this data?')) {return false;}">
-				</h:commandButton>
-			</h:column>
+				</p:commandButton>
+			</p:column>
 
-			<h:column>
+			<p:column>
 
-				<h:commandButton value="Update"
+				<p:commandButton value="Update"
 					action="#{webHandler.viewEmployee(emp)}">
 
-				</h:commandButton>
-			</h:column>
+				</p:commandButton>
+			</p:column>
 
-		</h:dataTable>
+		</p:dataTable>
+
+
+
 	</h:form>
 
 </h:body>

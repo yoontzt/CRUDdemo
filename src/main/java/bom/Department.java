@@ -1,8 +1,5 @@
 package bom;
 
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

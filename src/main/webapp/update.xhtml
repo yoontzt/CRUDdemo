@@ -3,64 +3,67 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
+<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
 </h:head>
 <h:body>
 
 	<h:form id="emform">
 		<h1>Update Form</h1>
-		<h:panelGrid columns="3">
+		<p:panelGrid columns="3" styleClass="panelgrid">
 		
 			Name:
-			<h:inputText id="name" value="#{webHandler.employee.name}"
-				size="20" required="true" label="name"
+			<p:inputText id="name" required="true"
+				value="#{webHandler.employee.name}"
 				requiredMessage="Name is required"
 				validatorMessage="Please enter a valid name.">
 				<f:validateRegex pattern="^[A-Za-z\s]{1,}[A-Za-z\s]{0,}$" />
-
-			</h:inputText>
-			<h:message for="name" style="color:red" />
+			</p:inputText>
+			<p:message for="name" style="color:red" />
 			
 		 	Age:
-		 	<h:inputText id="age" value="#{webHandler.employee.age}"
-				size="20" required="true" label="age"
-				requiredMessage="Age is required"
+		 	<p:inputText id="age" value="#{webHandler.employee.age}" size="20"
+				required="true" label="age" requiredMessage="Age is required"
 				converterMessage="Age must be a number."
 				validatorMessage="Age must be btween 18 and 45.">
 				<f:validateLongRange minimum="18" maximum="45" />
-			</h:inputText>
-			<h:message for="age" style="color:red" />
+			</p:inputText>
+
+			<p:message for="age" style="color:red" />
 			
 			Email:
-			<h:inputText id="email" value="#{webHandler.employee.email}"
+			<p:inputText id="email" value="#{webHandler.employee.email}"
 				size="20" required="true" label="email"
 				requiredMessage="Email is requied"
 				validatorMessage="Email is invalid.">
 				<f:validateRegex
 					pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$" />
-			</h:inputText>
-			<h:message for="email" style="color:red" />
+			</p:inputText>
+			<p:message for="email" style="color:red" />
 			
 			Department:
-			<h:selectOneMenu id="department" value="#{webHandler.id}"
+			<p:selectOneMenu id="department" value="#{webHandler.department.id}"
 				valueChangeListener="#{webHandler.changeDepartment}">
 				<f:selectItems value="#{webHandler.departmentList}" var="_dept"
 					itemValue="#{_dept.id}" itemLabel="#{_dept.name}" />
-			</h:selectOneMenu>
-			<h:message for="department" style="color:red" />
+			</p:selectOneMenu>
+			<p:message for="department" style="color:red" />
 
-			<h:commandButton value="Back" action="index" />
-			<h:commandButton value="Update"
-				action="#{webHandler.updateEmployee()}"
+			
+
+			<p:commandButton value="Back" action="index" />
+			<p:commandButton value="Update"
+				action="#{webHandler.updateEmployeeFromPage()}"
 				onclick="if(!confirm('Are you sure you want to update this data?')) {return false;}" />
 
 
+		</p:panelGrid>
+		
+			
 
-
-		</h:panelGrid>
 	</h:form>
 </h:body>
 

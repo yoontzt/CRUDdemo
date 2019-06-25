@@ -93,7 +93,7 @@ public class WebHandlerTest {
 
 		Mockito.when(depService.toEntity(department)).thenReturn(createDepartmentEntity());
 
-		String actual = webHandler.updateEmployee();
+		String actual = webHandler.updateEmployeeFromPage();
 
 		Mockito.verify(empService).updateEmployee(employee);
 		assertEquals("index.xhtml?faces-redirect=true&includeViewParams=true", actual);
@@ -103,9 +103,18 @@ public class WebHandlerTest {
 	@Test
 	public void testDeleteEmployee_ShouldReturnPage_WhenDeletedIsSuccessful() {
 		Employee employee = createEmployee();
-		webHandler.setEmployee(employee);
-		String actual = webHandler.deleteEmployee(employee);
-
+		
+		
+		EmployeeEntity empEntity = createEmployeeEntity();
+	
+		
+		Mockito.when(empService.toEntity(employee)).thenReturn(empEntity);
+		
+		
+		
+		String actual = webHandler.deleteEmployeeFromPage(employee);
+		
+		Mockito.verify(empService).deleteEmployee(empEntity);
 		assertEquals("index.xhtml?faces-redirect=true&includeViewParams=true", actual);
 
 	}
@@ -128,7 +137,7 @@ public class WebHandlerTest {
 	@Test
 	public void testChangeDepartment() {
 		
-		// Init Variables
+		// Initial Variables
 		Department expected = createDepartment();
 		DepartmentEntity departmentEntity = createDepartmentEntity();
 
@@ -146,7 +155,7 @@ public class WebHandlerTest {
 
 		// Verify
 	}
-
+//create functions
 	private Employee createEmployee() {
 		DepartmentEntity department = createDepartmentEntity();
 		return new Employee(1, "Yoon", 20, "yoon@gmail.com", department);

@@ -1,8 +1,5 @@
 package bom;
 
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-
 import entites.DepartmentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
