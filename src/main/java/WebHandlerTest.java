@@ -118,21 +118,21 @@ public class WebHandlerTest {
 		assertEquals("index.xhtml?faces-redirect=true&includeViewParams=true", actual);
 
 	}
-
-	@Test
-	public void testViewEmployee_ShouldReturnUpdatePage_WhenViewEmployeeisSuccessful() {
-		Department department = createDepartment();
-		Employee employee = createEmployee();
-		webHandler.setDepartment(department);
-		webHandler.setEmployee(employee);
-
-		Mockito.when(depService.toEntity(department)).thenReturn(createDepartmentEntity());
-
-		String actual = webHandler.viewEmployee(employee);
-		int id = employee.getDepartment().getId();
-		assertEquals("update.xhtml?faces-redirect=true&id=" + id, actual);
-
-	}
+//
+//	@Test
+//	public void testViewEmployee_ShouldReturnUpdatePage_WhenViewEmployeeisSuccessful() {
+//		Department department = createDepartment();
+//		Employee employee = createEmployee();
+//		webHandler.setDepartment(department);
+//		webHandler.setEmployee(employee);
+//
+//		Mockito.when(depService.toEntity(department)).thenReturn(createDepartmentEntity());
+//
+//		String actual = webHandler.viewEmployee(employee);
+//		int id = employee.getDepartment().getId();
+//		assertEquals("update.xhtml?faces-redirect=true&id=" + id, actual);
+//
+//	}
 
 	@Test
 	public void testChangeDepartment() {

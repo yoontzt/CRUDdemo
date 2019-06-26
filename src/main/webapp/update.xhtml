@@ -17,14 +17,14 @@
 
 			<p:outputLabel for="name" value="Name:" />
 			<p:inputText id="name" required="true"
-				value="#{webHandler.employee.name}" requiredMessage="Name is required"
+				value="#{updateBean.employee.name}" requiredMessage="Name is required"
 				validatorMessage="Please enter a valid name.">
 				<f:validateRegex pattern="[a-zA-Z]{2,}" />
 			</p:inputText>
 			<p:message for="name" style="color:red" />
 
 			<p:outputLabel for="age" value="Age:" />
-			<p:inputText id="age" value="#{webHandler.employee.age}" size="20"
+			<p:inputText id="age" value="#{updateBean.employee.age}" size="20"
 				required="true" label="age" requiredMessage="Age is required"
 				converterMessage="Age must be a number."
 				validatorMessage="Age must be btween 18 and 45.">
@@ -33,7 +33,7 @@
 			<p:message for="age" style="color:red" />
 
 			<p:outputLabel for="email" value="Email:" />
-			<p:inputText id="email" value="#{webHandler.employee.email}"
+			<p:inputText id="email" value="#{updateBean.employee.email}"
 				size="20" required="true" label="email"
 				requiredMessage="Email is requied"
 				validatorMessage="Email is invalid.">
@@ -43,9 +43,9 @@
 			<p:message for="email" style="color:red" />
 
 			<p:outputLabel for="department" value="Department:" />
-			<p:selectOneMenu id="department" value="#{webHandler.department.id}"
-				valueChangeListener="#{webHandler.changeDepartment}">
-				<f:selectItems value="#{webHandler.departmentList}" var="_dept"
+			<p:selectOneMenu id="department" value="#{updateBean.id}"
+				valueChangeListener="#{updateBean.changeDepartment}">
+				<f:selectItems value="#{updateBean.departmentList}" var="_dept"
 					itemValue="#{_dept.id}" itemLabel="#{_dept.name}" />
 			</p:selectOneMenu>
 			<p:message for="department" style="color:red" />
@@ -54,8 +54,9 @@
 		</h:panelGrid>
 		<p:commandButton value="Back" action="index" />
 		<p:commandButton value="Update"
-			action="#{webHandler.updateEmployeeFromPage()}"
-			update="grid" onclick="if(!confirm('Are you sure you want to update this data?')) {return false;}" />
+			action="#{updateBean.updateEmployeeFromPage()}"
+			update="grid" onclick="if(!confirm('Are you sure you want to update this data?')) {return false;}" >
+		</p:commandButton>
 	</h:form>
 </h:body>
 

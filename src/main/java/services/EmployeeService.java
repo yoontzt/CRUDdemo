@@ -44,13 +44,7 @@ public class EmployeeService extends GenericService<EmployeeEntity,Employee> {
 	}
 
 	public void updateEmployee(Employee e) {
-		
-		EmployeeEntity newEntity = findById(empService.toEntity(e).getId());
-		newEntity.setName(e.getName());
-		newEntity.setAge(e.getAge());
-		newEntity.setEmail(e.getEmail());
-		newEntity.setDepartment(deptService.findDepartmentById(e.getDepartment().getId()));
-		this.update(newEntity);
+		this.update(empService.toEntity(e));
 		
 	}
 	
