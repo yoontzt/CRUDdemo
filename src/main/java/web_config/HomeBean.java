@@ -3,14 +3,14 @@ package web_config;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
+
+import org.primefaces.PrimeFaces;
 
 import bom.Department;
 import bom.Employee;
@@ -22,16 +22,17 @@ import services.EmployeeService;
 @SuppressWarnings("deprecation")
 @ManagedBean
 @ViewScoped
-public class UpdateBean implements Serializable {
+public class HomeBean implements Serializable {
+
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5002361951830512815L;
 	private @Getter @Setter Department department = new Department();
+	
 	private @Getter @Setter Employee employee = new Employee();
-	private @Getter @Setter int id;
-
+	private @Getter @Setter Employee editemployee = new Employee();
 	@Inject
 	private EmployeeService empService;
 
@@ -44,27 +45,42 @@ public class UpdateBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-
-		
+		employeeList = empService.toBoms(empService.showAll());
 		departmentList = depService.toBoms(depService.showAll());
-		Map<String, String> paramMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String employeeId = paramMap.get("eid");
-		int eid = Integer.valueOf(employeeId);
+		if (departmentList.size() > 0) {
+			department = departmentList.get(0);
+		}
 		
-		employee = empService.toBom(empService.findById(eid));
-		setId(employee.getDepartment().getId());
 	}
 
-	
+	public void addNewEmployee() {
+		employee.setDepartment(depService.toEntity(department));
+		empService.addEmployee(employee);
+		employeeList = empService.toBoms(empService.showAll());
+		PrimeFaces.current().executeScript("PF('addEmployee').hide()");
+		
+	}
 
-	public String updateEmployeeFromPage() {
+	public void updateEmployeeFromPage() {
 		employee.setDepartment(depService.toEntity(department));
 		empService.updateEmployee(employee);
 		employeeList = empService.toBoms(empService.showAll());
-//		PrimeFaces.current().executeScript("top.location.reload()");
-		return "index.xhtml";
+		PrimeFaces.current().executeScript("PF('UpdateEmployee').hide()");
+		
 	}
 
+	public void deleteEmployeeFromPage(Employee employeeBOM) {
+		empService.deleteEmployee(empService.toEntity(employeeBOM));
+		employeeList = empService.toBoms(empService.showAll());
+		
+	}
+
+	public void viewEmployee(Employee emp) {
+		setEmployee(emp);
+		PrimeFaces.current().executeScript("PF('UpdateEmployee').show()");
+		
+		
+	}
 
 	public void changeDepartment(ValueChangeEvent dept) {
 		department = depService.toBom(depService.findDepartmentById(Integer.parseInt(dept.getNewValue().toString())));
