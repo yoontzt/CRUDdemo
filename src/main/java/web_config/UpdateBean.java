@@ -12,6 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 
+import org.primefaces.PrimeFaces;
+
 import bom.Department;
 import bom.Employee;
 import lombok.Getter;
@@ -61,7 +63,7 @@ public class UpdateBean implements Serializable {
 		employee.setDepartment(depService.toEntity(department));
 		empService.updateEmployee(employee);
 		employeeList = empService.toBoms(empService.showAll());
-//		PrimeFaces.current().executeScript("top.location.reload()");
+		PrimeFaces.current().executeScript("top.location.reload()");
 		return "index.xhtml";
 	}
 

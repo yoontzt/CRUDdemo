@@ -83,7 +83,9 @@
 				<h:outputText value="#{emp.department.name}" />
 			</p:column>
 
+
 			<p:column>
+
 				<p:commandButton value="Delete"
 					action="#{webHandler.deleteEmployeeFromPage(emp)}"
 					onclick="if(!confirm('Are you sure you want to permentaly delete this data?')) {return false;}">
@@ -91,6 +93,8 @@
 			</p:column>
 
 			<p:column>
+				<p:commandLink >
+				</p:commandLink>
 				<p:commandButton value="Update"
 					action="#{webHandler.viewEmployee(emp)}">
 					<f:param name="eid" value="#{emp.id}"></f:param>
@@ -98,6 +102,9 @@
 			</p:column>
 
 		</p:dataTable>
+
+
+
 	</h:form>
 
 </h:body>
